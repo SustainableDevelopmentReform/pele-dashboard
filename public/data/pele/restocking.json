@@ -4,10 +4,9 @@
       "id": "giant-clam",
       "label": "Giant clam restocking areas",
       "displayName": "Giant clam",
-      "mapImage": "/pele/restocking-static-map.svg",
       "mapLink": {
         "label": "Open mapping view",
-        "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping"
+        "url": "/spatial"
       },
       "sites": [
         {
@@ -88,10 +87,9 @@
       "id": "green-snail",
       "label": "Green snail restocking areas",
       "displayName": "Green snail",
-      "mapImage": "/pele/restocking-static-map.svg",
       "mapLink": {
         "label": "Open mapping view",
-        "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping"
+        "url": "/spatial"
       },
       "sites": [
         {

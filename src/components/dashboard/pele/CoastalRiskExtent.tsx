@@ -1,9 +1,12 @@
+import Link from "next/link";
 import { formatNumber } from "@/lib/format";
 import type { CoastalRiskData } from "@/types";
 
 interface CoastalRiskExtentProps {
   data?: CoastalRiskData | null;
 }
+
+const isExternalUrl = (url: string) => /^https?:\/\//.test(url);
 
 export function CoastalRiskExtent({ data }: CoastalRiskExtentProps) {
   if (!data) {
@@ -55,14 +58,23 @@ export function CoastalRiskExtent({ data }: CoastalRiskExtentProps) {
 
       {data.mapLink ? (
         <div>
-          <a
-            href={data.mapLink.url}
-            target="_blank"
-            rel="noreferrer"
-            className="border-primary/60 text-primary hover:bg-primary/10 inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors"
-          >
-            {data.mapLink.label}
-          </a>
+          {isExternalUrl(data.mapLink.url) ? (
+            <a
+              href={data.mapLink.url}
+              target="_blank"
+              rel="noreferrer"
+              className="border-primary/60 text-primary hover:bg-primary/10 inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors"
+            >
+              {data.mapLink.label}
+            </a>
+          ) : (
+            <Link
+              href={data.mapLink.url}
+              className="border-primary/60 text-primary hover:bg-primary/10 inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors"
+            >
+              {data.mapLink.label}
+            </Link>
+          )}
         </div>
       ) : null}
     </section>

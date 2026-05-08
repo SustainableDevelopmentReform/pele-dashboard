@@ -65,6 +65,16 @@ export const loadSiteConfig = () => loadJson<SiteConfig>("site.json");
 export const loadCoastalRiskData = () => loadJson<CoastalRiskData>("coastal-risk.json");
 export const loadRestockingData = () => loadJson<RestockingData>("restocking.json");
 
+export const loadResolvedSiteConfig = cache(async (): Promise<SiteConfig> => {
+  try {
+    return await loadSiteConfig();
+  } catch {
+    return {
+      siteProfile: dashboardConfig.siteProfile,
+    };
+  }
+});
+
 // Maritime data loaders
 export const loadMaritimeOverview = () =>
   loadJson<MaritimeOverview>("maritime/overview.json");
@@ -89,14 +99,7 @@ export const loadDashboardData = cache(async (): Promise<DashboardDataBundle> =>
       loadSpatialConfig(),
     ]);
 
-  let site: SiteConfig = {
-    siteProfile: dashboardConfig.siteProfile,
-  };
-  try {
-    site = await loadSiteConfig();
-  } catch {
-    // Site profile is optional; env/data directory remains the default source.
-  }
+  const site = await loadResolvedSiteConfig();
 
   let coastalRisk = null;
   try {

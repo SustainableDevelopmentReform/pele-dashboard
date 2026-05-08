@@ -4,6 +4,7 @@ import { ResultsTrackingContent } from "@/components/results/ResultsTrackingCont
 import {
   loadResultsData,
   loadNarrativeData,
+  loadResolvedSiteConfig,
   loadSpatialConfig,
   loadSubnationalData,
 } from "@/lib/dataLoader";
@@ -19,11 +20,12 @@ export default async function ResultsTrackingPage({
 }: {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const [results, narrative, spatial, subnational] = await Promise.all([
+  const [results, narrative, spatial, subnational, site] = await Promise.all([
     loadResultsData(),
     loadNarrativeData(),
     loadSpatialConfig(),
     loadSubnationalData(),
+    loadResolvedSiteConfig(),
   ]);
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
@@ -32,7 +34,11 @@ export default async function ResultsTrackingPage({
 
   return (
     <>
-      <Header />
+      <Header
+        profile={site.siteProfile}
+        logoSrc={site.logoSrc}
+        mappingLink={site.mappingLink}
+      />
       <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-10 px-6 py-12">
         <ResultsTrackingContent
           results={results}
@@ -41,7 +47,11 @@ export default async function ResultsTrackingPage({
           initialPilotId={pilotParam}
         />
       </main>
-      <Footer footer={narrative.footer} />
+      <Footer
+        footer={narrative.footer}
+        profile={site.siteProfile}
+        logoSrc={site.logoSrc}
+      />
     </>
   );
 }

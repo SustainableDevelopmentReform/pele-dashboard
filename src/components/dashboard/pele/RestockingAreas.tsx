@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { format } from "date-fns";
 import { formatPercentage } from "@/lib/format";
@@ -12,6 +12,8 @@ interface RestockingAreasProps {
 
 const getLatestSurvey = (surveys: RestockingSurvey[]) =>
   [...surveys].sort((a, b) => b.year - a.year)[0];
+
+const isExternalUrl = (url: string) => /^https?:\/\//.test(url);
 
 const formatDate = (value: string) => {
   const date = new Date(value);
@@ -147,20 +149,9 @@ export function RestockingAreas({ data }: RestockingAreasProps) {
         })}
       </div>
 
-      {species.mapImage || species.mapLink ? (
+      {species.mapLink ? (
         <div className="mt-5 flex flex-col gap-4">
-          {species.mapImage ? (
-            <figure className="relative h-72 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-              <Image
-                src={species.mapImage}
-                alt={`${species.displayName} restocking map`}
-                fill
-                sizes="(min-width: 1280px) 1120px, 100vw"
-                className="object-cover"
-              />
-            </figure>
-          ) : null}
-          {species.mapLink ? (
+          {isExternalUrl(species.mapLink.url) ? (
             <a
               href={species.mapLink.url}
               target="_blank"
@@ -169,7 +160,14 @@ export function RestockingAreas({ data }: RestockingAreasProps) {
             >
               {species.mapLink.label}
             </a>
-          ) : null}
+          ) : (
+            <Link
+              href={species.mapLink.url}
+              className="border-primary/60 text-primary hover:bg-primary/10 inline-flex w-fit items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors"
+            >
+              {species.mapLink.label}
+            </Link>
+          )}
         </div>
       ) : null}
     </section>

@@ -3,7 +3,7 @@ import { Header } from "@/components/shared/Header";
 import { Footer } from "@/components/shared/Footer";
 import { CSDRAccessCard } from "@/components/dataCapture/CSDRAccessCard";
 import { DataSubmissionForm } from "@/components/dataCapture/DataSubmissionForm";
-import { loadNarrativeData } from "@/lib/dataLoader";
+import { loadNarrativeData, loadResolvedSiteConfig } from "@/lib/dataLoader";
 
 export const metadata: Metadata = {
   title: "Data Capture",
@@ -12,19 +12,32 @@ export const metadata: Metadata = {
 };
 
 export default async function DataCapturePage() {
-  const narrative = await loadNarrativeData();
+  const [narrative, site] = await Promise.all([
+    loadNarrativeData(),
+    loadResolvedSiteConfig(),
+  ]);
 
   return (
     <>
-      <Header />
+      <Header
+        profile={site.siteProfile}
+        logoSrc={site.logoSrc}
+        mappingLink={site.mappingLink}
+      />
       <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-10 px-6 py-12">
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Data Onboarding</p>
+          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase">
+            Data Onboarding
+          </p>
           <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-semibold text-slate-900">Capture and submit new data</h1>
+            <h1 className="text-4xl font-semibold text-slate-900">
+              Capture and submit new data
+            </h1>
             <p className="max-w-2xl text-sm text-slate-600">
-              Choose the pathway that suits your workflow: use your Data Framework platform portal for data management, or use the
-              webform to understand the metadata and quality information requested for new datasets, and submit your data.
+              Choose the pathway that suits your workflow: use your Data Framework
+              platform portal for data management, or use the webform to understand the
+              metadata and quality information requested for new datasets, and submit your
+              data.
             </p>
           </div>
         </div>
@@ -34,7 +47,11 @@ export default async function DataCapturePage() {
           <DataSubmissionForm />
         </div>
       </main>
-      <Footer footer={narrative.footer} />
+      <Footer
+        footer={narrative.footer}
+        profile={site.siteProfile}
+        logoSrc={site.logoSrc}
+      />
     </>
   );
 }

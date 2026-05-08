@@ -11,6 +11,8 @@ const genericNavigation = [
   { href: "/strategic", label: "Strategic" },
 ];
 
+const isExternalUrl = (url: string) => /^https?:\/\//.test(url);
+
 interface HeaderProps {
   profile?: SiteProfile;
   logoSrc?: string | null;
@@ -57,14 +59,23 @@ export function Header({ profile = "generic", logoSrc, mappingLink }: HeaderProp
             </Link>
           ))}
           {isPele && mappingLink ? (
-            <a
-              href={mappingLink.url}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:bg-primary-soft/70 hover:text-primary rounded-full px-3 py-2 transition-colors"
-            >
-              {mappingLink.label}
-            </a>
+            isExternalUrl(mappingLink.url) ? (
+              <a
+                href={mappingLink.url}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:bg-primary-soft/70 hover:text-primary rounded-full px-3 py-2 transition-colors"
+              >
+                {mappingLink.label}
+              </a>
+            ) : (
+              <Link
+                href={mappingLink.url}
+                className="hover:bg-primary-soft/70 hover:text-primary rounded-full px-3 py-2 transition-colors"
+              >
+                {mappingLink.label}
+              </Link>
+            )
           ) : null}
         </nav>
       </div>

@@ -10,11 +10,15 @@ export const metadata = {
 };
 
 export default async function MaritimePage() {
-  const { maritime, crew, traffic, narrative } = await loadDashboardData();
+  const { maritime, crew, traffic, narrative, site } = await loadDashboardData();
 
   return (
     <>
-      <Header />
+      <Header
+        profile={site.siteProfile}
+        logoSrc={site.logoSrc}
+        mappingLink={site.mappingLink}
+      />
       <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-10 px-6 py-12">
         {maritime && crew && traffic ? (
           <MaritimeDashboard
@@ -29,7 +33,11 @@ export default async function MaritimePage() {
           </section>
         )}
       </main>
-      <Footer footer={narrative.footer} />
+      <Footer
+        footer={narrative.footer}
+        profile={site.siteProfile}
+        logoSrc={site.logoSrc}
+      />
     </>
   );
 }

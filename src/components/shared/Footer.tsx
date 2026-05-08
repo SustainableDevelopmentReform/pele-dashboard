@@ -29,36 +29,40 @@ export function Footer({ footer, profile = "generic", logoSrc }: FooterProps) {
               />
             </div>
           ) : null}
-          <a
-            href="https://www.unsw.edu.au/research/centre-for-sustainable-development-reform"
-            target="_blank"
-            rel="noreferrer"
-            className="relative h-32 w-32"
-            aria-label="Centre for Sustainable Development Reform"
-          >
-            <Image
-              src="/csdr.png"
-              alt="Centre for Sustainable Development Reform logo"
-              fill
-              sizes="128px"
-              className="object-contain"
-            />
-          </a>
-          <a
-            href="https://www.oceanaccounts.org/"
-            target="_blank"
-            rel="noreferrer"
-            className="relative h-32 w-32"
-            aria-label="Global Ocean Accounts Partnership"
-          >
-            <Image
-              src="/goap.png"
-              alt="Global Ocean Accounts Partnership logo"
-              fill
-              sizes="128px"
-              className="object-contain"
-            />
-          </a>
+          {!isPele ? (
+            <>
+              <a
+                href="https://www.unsw.edu.au/research/centre-for-sustainable-development-reform"
+                target="_blank"
+                rel="noreferrer"
+                className="relative h-32 w-32"
+                aria-label="Centre for Sustainable Development Reform"
+              >
+                <Image
+                  src="/csdr.png"
+                  alt="Centre for Sustainable Development Reform logo"
+                  fill
+                  sizes="128px"
+                  className="object-contain"
+                />
+              </a>
+              <a
+                href="https://www.oceanaccounts.org/"
+                target="_blank"
+                rel="noreferrer"
+                className="relative h-32 w-32"
+                aria-label="Global Ocean Accounts Partnership"
+              >
+                <Image
+                  src="/goap.png"
+                  alt="Global Ocean Accounts Partnership logo"
+                  fill
+                  sizes="128px"
+                  className="object-contain"
+                />
+              </a>
+            </>
+          ) : null}
         </div>
       </div>
     </footer>
