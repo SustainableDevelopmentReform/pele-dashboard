@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:generic": "NEXT_PUBLIC_DATA_PATH=generic next build",
+    "build:pele": "NEXT_PUBLIC_DATA_PATH=pele next build",
     "start": "next start",
+    "dev:generic": "NEXT_PUBLIC_DATA_PATH=generic next dev",
+    "dev:pele": "NEXT_PUBLIC_DATA_PATH=pele next dev",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "test": "jest",

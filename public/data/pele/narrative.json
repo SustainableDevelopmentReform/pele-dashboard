@@ -1,0 +1,28 @@
+{
+  "introduction": {
+    "title": "Pele Island Coral Reef and Shoreline Defence Information Dashboard",
+    "content": "This Dashboard provides the community of Pele Island with comprehensive, accessible information about their coral reefs, coastal environment, and climate risks to support evidence-based management decisions. This platform integrates AI-powered coral reef mapping (ReefCloud/Google Earth Engine) that utilises satellite Earth observation data with field measurements, drone-derived coastal topography (LiDAR), and wave modelling to deliver actionable insights for climate adaptation, coral restoration, and coastal defence. Built on open-source technologies and designed through deep community consultation across all four Pele Island villages (Worasiviu, Launamo, Piliura, Worearu), the dashboard ensures community ownership of their environmental data.\n\nThe dashboard supports diverse community management planning needs including identifying priority sites for coral restoration and coastal protection, tracking reef health changes over time through ongoing monitoring, modelling erosion and inundation risks under multiple IPCC climate scenarios, integrating traditional ecological knowledge with scientific data, and enabling community-led biodiversity finance initiatives. All maps, models, and data are accessible through free cloud-based services (Google Earth Engine Apps, open-source platforms) ensuring the Pele Island Environmental Livelihood Solutions Network (PIELSN) maintains long-term capacity for monitoring and adaptation planning.",
+    "lastUpdated": "2026-05-08"
+  },
+  "sections": [
+    {
+      "id": "conservation-future-outlook",
+      "title": "Conservation and Future Outlook",
+      "content": "Pele Island's reef, seagrass, and shoreline systems support food security, community identity, restoration work, and shoreline protection. This first Pele dashboard profile provides the structure for combining technical mapping outputs with community stewardship priorities.\n\nFuture updates should replace placeholder values with validated field, drone, satellite, and wave-modelling outputs; add confirmed village social indicators; and extend the shoreline change component when coastal-risk scenarios are ready.",
+      "order": 1,
+      "images": []
+    },
+    {
+      "id": "data-sources-methodology",
+      "title": "Data Sources and Methodology",
+      "content": "The Pele Island coastal and reef mapping integrates multiple data sources collected during the August 2025 field campaign and ongoing satellite monitoring. Primary data sources include:\n\n**Field Survey Data:** geo-located underwater photographs from SCUBA and snorkel photo-transect surveys conducted by 16 trained community members following University of Queensland standardized protocols, classified using ReefCloud AI to identify benthic cover (coral, algae, sand, seagrass, consolidated substrate).\n\n**Drone Data:** very-high-resolution (2cm) multispectral imagery (RGB and 14 multispectral bands) and LiDAR point clouds captured using the UQ Drone Collaborative Research Platform's $200,000 VTOL drone system, processed to generate orthomosaics, digital elevation models (DEMs), and digital surface models (DSMs) of coastal topography and reef structure.\n\n**Satellite Imagery:** high-resolution multispectral data from Sentinel-2 and commercial providers (EOMAP satellite-derived bathymetry) processed in Google Earth Engine using random forest machine learning classifiers trained on community-collected field data.\n\n**Wave and Oceanographic Data:** in-situ wave energy measurements, seafloor sediment samples, and global wave climate models (GFS-Wave, ECMWF) transformed to nearshore conditions using SWAN, XBeach, and Delft3D hydrodynamic models incorporating high-resolution bathymetry, LiDAR topography, and IPCC sea-level rise scenarios.\n\nAll methodologies follow open-source, reproducible workflows enabling ongoing community-led monitoring and are being published to publicly accessible repositories.\n\nLocal expert input from Salome and Willie should be added when confirmed.",
+      "order": 2,
+      "images": []
+    }
+  ],
+  "footer": {
+    "attribution": "Prepared for the Pele Island Environmental Learning and Stewardship Network (PIELSN) and partners.",
+    "dataSourceCitation": "Pele Island dashboard profile. Placeholder values should be replaced with validated project datasets before publication.",
+    "contactInfo": null
+  }
+}

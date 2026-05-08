@@ -4,13 +4,16 @@ import { cache } from "react";
 import { dashboardConfig, resolveDataUrl } from "./config";
 import type {
   CrewData,
+  CoastalRiskData,
   DashboardDataBundle,
   EconomicData,
   MaritimeFleet,
   MaritimeOverview,
   NarrativeData,
   NationalData,
+  RestockingData,
   ResultsData,
+  SiteConfig,
   StrategicData,
   SocioeconomicData,
   SpatialConfig,
@@ -58,16 +61,22 @@ export const loadEconomicData = () => loadJson<EconomicData>("economic.json");
 export const loadNarrativeData = () => loadJson<NarrativeData>("narrative.json");
 export const loadSpatialConfig = () => loadJson<SpatialConfig>("spatial.json");
 export const loadResultsData = () => loadJson<ResultsData>("results.json");
+export const loadSiteConfig = () => loadJson<SiteConfig>("site.json");
+export const loadCoastalRiskData = () => loadJson<CoastalRiskData>("coastal-risk.json");
+export const loadRestockingData = () => loadJson<RestockingData>("restocking.json");
 
 // Maritime data loaders
-export const loadMaritimeOverview = () => loadJson<MaritimeOverview>("maritime/overview.json");
+export const loadMaritimeOverview = () =>
+  loadJson<MaritimeOverview>("maritime/overview.json");
 export const loadMaritimeFleet = () => loadJson<MaritimeFleet>("maritime/fleet.json");
 export const loadMaritimeCrew = () => loadJson<CrewData>("maritime/crew.json");
 export const loadMaritimeTraffic = () => loadJson<TrafficData>("maritime/traffic.json");
-export const loadMaritimeStrategic = () => loadJson<StrategicData>("maritime/strategic.json");
+export const loadMaritimeStrategic = () =>
+  loadJson<StrategicData>("maritime/strategic.json");
 
 // Social data loader
-export const loadSocioeconomicData = () => loadJson<SocioeconomicData>("socioeconomic.json");
+export const loadSocioeconomicData = () =>
+  loadJson<SocioeconomicData>("socioeconomic.json");
 
 export const loadDashboardData = cache(async (): Promise<DashboardDataBundle> => {
   const [national, subnational, timeseries, economic, narrative, spatial] =
@@ -79,6 +88,29 @@ export const loadDashboardData = cache(async (): Promise<DashboardDataBundle> =>
       loadNarrativeData(),
       loadSpatialConfig(),
     ]);
+
+  let site: SiteConfig = {
+    siteProfile: dashboardConfig.siteProfile,
+  };
+  try {
+    site = await loadSiteConfig();
+  } catch {
+    // Site profile is optional; env/data directory remains the default source.
+  }
+
+  let coastalRisk = null;
+  try {
+    coastalRisk = await loadCoastalRiskData();
+  } catch {
+    // Coastal risk data is optional and Pele-specific.
+  }
+
+  let restocking = null;
+  try {
+    restocking = await loadRestockingData();
+  } catch {
+    // Restocking data is optional and Pele-specific.
+  }
 
   // Load optional maritime data (graceful fallback if files don't exist)
   let maritime = null;
@@ -120,6 +152,9 @@ export const loadDashboardData = cache(async (): Promise<DashboardDataBundle> =>
     economic,
     narrative,
     spatial,
+    site,
+    coastalRisk,
+    restocking,
     maritime,
     crew,
     traffic,

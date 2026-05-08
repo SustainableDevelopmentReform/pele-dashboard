@@ -1,0 +1,187 @@
+{
+  "mapConfig": {
+    "center": {
+      "latitude": -17.51,
+      "longitude": 168.31
+    },
+    "defaultZoom": 12,
+    "maxZoom": 16,
+    "minZoom": 9,
+    "baseMapStyle": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+  },
+  "boundaries": {
+    "national": {
+      "type": "Feature",
+      "properties": {
+        "name": "Pele Island",
+        "area_km2": 1.7,
+        "population": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [168.283, -17.492],
+            [168.304, -17.484],
+            [168.331, -17.495],
+            [168.334, -17.516],
+            [168.314, -17.532],
+            [168.289, -17.526],
+            [168.277, -17.507],
+            [168.283, -17.492]
+          ]
+        ]
+      }
+    },
+    "subnational": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "id": "west-coast",
+            "name": "West coast - tide dominated",
+            "area_km2": 0.65
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [168.276, -17.489],
+                [168.305, -17.486],
+                [168.306, -17.532],
+                [168.282, -17.527],
+                [168.276, -17.489]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": "east-coast",
+            "name": "East coast - wave dominated",
+            "area_km2": 0.72
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [168.305, -17.486],
+                [168.336, -17.494],
+                [168.338, -17.517],
+                [168.314, -17.532],
+                [168.306, -17.532],
+                [168.305, -17.486]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": "south-coast",
+            "name": "South coast - mixed",
+            "area_km2": 0.5
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [168.287, -17.515],
+                [168.319, -17.515],
+                [168.314, -17.534],
+                [168.29, -17.528],
+                [168.287, -17.515]
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "locations": [
+    {
+      "id": "worasiviu",
+      "name": "Worasiviu",
+      "type": "village",
+      "coordinates": {
+        "latitude": -17.492,
+        "longitude": 168.296
+      },
+      "description": "Pele Island village and restoration monitoring area."
+    },
+    {
+      "id": "launamo",
+      "name": "Launamo",
+      "type": "village",
+      "coordinates": {
+        "latitude": -17.501,
+        "longitude": 168.318
+      },
+      "description": "Pele Island village and restoration monitoring area."
+    },
+    {
+      "id": "piliura",
+      "name": "Piliura",
+      "type": "village",
+      "coordinates": {
+        "latitude": -17.516,
+        "longitude": 168.324
+      },
+      "description": "Pele Island village and restoration monitoring area."
+    },
+    {
+      "id": "worearu",
+      "name": "Worearu",
+      "type": "village",
+      "coordinates": {
+        "latitude": -17.524,
+        "longitude": 168.302
+      },
+      "description": "Pele Island village and restoration monitoring area."
+    }
+  ],
+  "geeApp": {
+    "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping",
+    "title": "Pele Island Mapping View",
+    "description": "Public Pele Island GEE mapping view for reef, shoreline, and restocking layers."
+  },
+  "legend": [
+    {
+      "ecosystem": "coralReef",
+      "color": "#e85d75",
+      "label": "Coral Reef"
+    },
+    {
+      "ecosystem": "rubbleBrokenCoral",
+      "color": "#caa06a",
+      "label": "Rubble/broken coral"
+    },
+    {
+      "ecosystem": "sand",
+      "color": "#f1dca7",
+      "label": "Sand"
+    },
+    {
+      "ecosystem": "pavement",
+      "color": "#8f98a3",
+      "label": "Pavement"
+    },
+    {
+      "ecosystem": "rubble",
+      "color": "#5f6872",
+      "label": "Rubble"
+    },
+    {
+      "ecosystem": "denseSeagrass",
+      "color": "#176f48",
+      "label": "Dense seagrass"
+    },
+    {
+      "ecosystem": "lightSeagrass",
+      "color": "#7dbb6f",
+      "label": "Light seagrass"
+    }
+  ]
+}

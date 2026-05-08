@@ -3,12 +3,20 @@
 import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
 import { extent, max, scaleLinear, line as d3Line, bisector } from "d3";
-import type { TimeSeriesData, TimeSeriesPoint } from "@/types";
-import { CONFIDENCE_LABELS } from "@/lib/constants";
+import type {
+  EcosystemKey,
+  SiteProfile,
+  TimeSeriesData,
+  TimeSeriesPoint,
+  TimeSeriesSeries,
+} from "@/types";
+import { CONFIDENCE_LABELS, ECOSYSTEM_COLORS } from "@/lib/constants";
 import { formatNumber } from "@/lib/format";
 
 interface TimeSeriesChartProps {
   data: TimeSeriesData;
+  profile?: SiteProfile;
+  includeTotalSeries?: boolean;
 }
 
 const CHART_WIDTH = 840;
@@ -17,18 +25,61 @@ const MARGIN = { top: 20, right: 24, bottom: 40, left: 56 };
 
 const bisectYear = bisector<TimeSeriesPoint, number>((d) => d.year).left;
 
-export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
+const isEcosystemKey = (value: string): value is EcosystemKey =>
+  value in ECOSYSTEM_COLORS;
+
+const buildTotalSeries = (data: TimeSeriesData): TimeSeriesSeries | null => {
+  const yearTotals = new Map<number, number>();
+
+  data.ecosystems.forEach((series) => {
+    series.data.forEach((point) => {
+      yearTotals.set(point.year, (yearTotals.get(point.year) ?? 0) + point.value);
+    });
+  });
+
+  if (yearTotals.size === 0) {
+    return null;
+  }
+
+  return {
+    name: "totalBenthicCover",
+    displayName: "Total benthic cover",
+    unit: data.ecosystems[0]?.unit ?? "hectares",
+    data: [...yearTotals.entries()]
+      .sort(([a], [b]) => a - b)
+      .map(([year, value]) => ({ year, value, confidence: "medium" })),
+  };
+};
+
+export function TimeSeriesChart({
+  data,
+  profile = "generic",
+  includeTotalSeries = false,
+}: TimeSeriesChartProps) {
+  const availableSeries = useMemo(() => {
+    const totalSeries = includeTotalSeries ? buildTotalSeries(data) : null;
+    return totalSeries ? [totalSeries, ...data.ecosystems] : data.ecosystems;
+  }, [data, includeTotalSeries]);
+
   const [selectedSeriesName, setSelectedSeriesName] = useState(
-    () => data.ecosystems[0]?.name ?? "",
+    () => availableSeries[0]?.name ?? "",
   );
   const [hoveredPoint, setHoveredPoint] = useState<TimeSeriesPoint | null>(null);
 
   const series = useMemo(() => {
     const found = data.ecosystems.find(
-      (item) => item.name === selectedSeriesName || item.displayName === selectedSeriesName,
+      (item) =>
+        item.name === selectedSeriesName || item.displayName === selectedSeriesName,
     );
-    return found ?? data.ecosystems[0];
-  }, [data.ecosystems, selectedSeriesName]);
+    return (
+      availableSeries.find(
+        (item) =>
+          item.name === selectedSeriesName || item.displayName === selectedSeriesName,
+      ) ??
+      found ??
+      availableSeries[0]
+    );
+  }, [availableSeries, data.ecosystems, selectedSeriesName]);
 
   const sortedData = useMemo(
     () => [...series.data].sort((a, b) => a.year - b.year),
@@ -40,7 +91,9 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
     const yMax = max(sortedData, (d) => d.value) ?? 0;
     const safeMax = yMax <= 0 ? 1 : yMax;
 
-    const x = scaleLinear().domain(xDomain).range([MARGIN.left, CHART_WIDTH - MARGIN.right]);
+    const x = scaleLinear()
+      .domain(xDomain)
+      .range([MARGIN.left, CHART_WIDTH - MARGIN.right]);
     const y = scaleLinear()
       .domain([0, safeMax * 1.1])
       .nice()
@@ -69,7 +122,8 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
     let nearest = previousPoint;
     if (nextPoint && previousPoint) {
       nearest =
-        Math.abs(yearEstimate - previousPoint.year) < Math.abs(yearEstimate - nextPoint.year)
+        Math.abs(yearEstimate - previousPoint.year) <
+        Math.abs(yearEstimate - nextPoint.year)
           ? previousPoint
           : nextPoint;
     }
@@ -93,23 +147,30 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
     return years;
   }, [data.endYear, data.startYear]);
 
+  const lineColor = isEcosystemKey(series.name)
+    ? ECOSYSTEM_COLORS[series.name]
+    : "#0f766e";
+  const title = profile === "pele" ? "Changes over Time" : "Temporal Trends";
+  const selectorLabel = profile === "pele" ? "Benthic cover" : "Ecosystem";
+  const displayUnit = series.unit === "m2" ? "m²" : series.unit;
+
   return (
     <section className="rounded-[1.5rem] border border-slate-200/70 bg-white/80 p-6 shadow-sm">
       <header className="flex flex-wrap items-center justify-between gap-3 pb-4">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900">Temporal Trends</h2>
+          <h2 className="text-2xl font-semibold text-slate-900">{title}</h2>
           <p className="text-sm text-slate-600">
             Historical ecosystem extent from {data.startYear} to {data.endYear}.
           </p>
         </div>
         <label className="flex items-center gap-2 text-sm font-medium text-slate-600">
-          Ecosystem
+          {selectorLabel}
           <select
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-base text-slate-700 shadow-sm focus:border-primary focus:outline-none"
+            className="focus:border-primary rounded-xl border border-slate-200 bg-white px-3 py-2 text-base text-slate-700 shadow-sm focus:outline-none"
             value={selectedSeriesName}
             onChange={(event) => setSelectedSeriesName(event.target.value)}
           >
-            {data.ecosystems.map((item) => (
+            {availableSeries.map((item) => (
               <option key={item.name} value={item.name}>
                 {item.displayName}
               </option>
@@ -190,7 +251,13 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
             ))}
           </g>
           {path ? (
-            <path d={path} fill="none" stroke="#0077be" strokeWidth={3} strokeLinecap="round" />
+            <path
+              d={path}
+              fill="none"
+              stroke={lineColor}
+              strokeWidth={3}
+              strokeLinecap="round"
+            />
           ) : null}
           {hoveredPoint ? (
             <g>
@@ -198,22 +265,25 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
                 cx={xScale(hoveredPoint.year)}
                 cy={yScale(hoveredPoint.value)}
                 r={6}
-                fill="#0077be"
+                fill={lineColor}
               />
             </g>
           ) : null}
         </svg>
         {hoveredPoint ? (
           <div
-            className="pointer-events-none absolute left-[var(--hover-x)] top-[var(--hover-y)] -translate-x-1/2 -translate-y-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs shadow-lg"
-            style={{
-              "--hover-x": `${xScale(hoveredPoint.year)}px`,
-              "--hover-y": `${yScale(hoveredPoint.value)}px`,
-            } as CSSProperties}
+            className="pointer-events-none absolute top-[var(--hover-y)] left-[var(--hover-x)] -translate-x-1/2 -translate-y-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs shadow-lg"
+            style={
+              {
+                "--hover-x": `${xScale(hoveredPoint.year)}px`,
+                "--hover-y": `${yScale(hoveredPoint.value)}px`,
+              } as CSSProperties
+            }
           >
             <p className="font-semibold text-slate-900">{hoveredPoint.year}</p>
             <p className="text-slate-600">
-              {formatNumber(hoveredPoint.value, { maximumFractionDigits: 0 })} ha
+              {formatNumber(hoveredPoint.value, { maximumFractionDigits: 0 })}{" "}
+              {displayUnit}
             </p>
             <p className="text-slate-400">
               {CONFIDENCE_LABELS[hoveredPoint.confidence] ?? hoveredPoint.confidence}
@@ -222,18 +292,18 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
         ) : null}
       </figure>
       <details className="mt-6 rounded-xl border border-slate-200/80 bg-slate-50/60 p-4 text-sm text-slate-600">
-        <summary className="cursor-pointer select-none font-semibold text-slate-700">
+        <summary className="cursor-pointer font-semibold text-slate-700 select-none">
           View data table (accessible alternative)
         </summary>
         <div className="mt-3 overflow-auto">
           <table className="min-w-full divide-y divide-slate-200 text-sm">
-            <thead className="bg-white text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <thead className="bg-white text-left text-xs font-semibold tracking-wide text-slate-500 uppercase">
               <tr>
                 <th scope="col" className="px-3 py-2">
                   Year
                 </th>
                 <th scope="col" className="px-3 py-2">
-                  Extent (ha)
+                  Extent ({displayUnit})
                 </th>
                 <th scope="col" className="px-3 py-2">
                   Confidence

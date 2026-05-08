@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ExternalLink, SiteProfile } from "@/types";
 
-const navigation = [
+const genericNavigation = [
   { href: "/", label: "Dashboard" },
   { href: "/maritime", label: "Maritime" },
   { href: "/spatial", label: "Spatial" },
@@ -10,32 +11,38 @@ const navigation = [
   { href: "/strategic", label: "Strategic" },
 ];
 
-export function Header() {
+interface HeaderProps {
+  profile?: SiteProfile;
+  logoSrc?: string | null;
+  mappingLink?: ExternalLink | null;
+}
+
+export function Header({ profile = "generic", logoSrc, mappingLink }: HeaderProps) {
+  const isPele = profile === "pele";
+  const navigation = isPele ? [{ href: "/", label: "Dashboard" }] : genericNavigation;
+
   return (
     <header className="border-b border-slate-200/70 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-6 py-5">
-        <div className="flex items-end gap-3">
-          <div className="flex flex-col items-center gap-1">
-            <span className="text-xs font-semibold uppercase tracking-[0.4em] text-primary">
-              GOAP
-            </span>
-            <div className="relative h-10 w-10">
-              <Image
-                src="/goap_button.png"
-                alt="Global Ocean Accounts Partnership logo"
-                fill
-                sizes="40px"
-                className="object-contain"
-                priority
-              />
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="relative h-12 w-12">
+            <Image
+              src={isPele && logoSrc ? logoSrc : "/goap_button.png"}
+              alt={isPele ? "PIELSN logo" : "Global Ocean Accounts Partnership logo"}
+              fill
+              sizes="48px"
+              className="object-contain"
+              priority
+            />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium uppercase tracking-wide text-slate-500">
-              Ocean Accounts Framework
+            <span className="text-sm font-medium tracking-wide text-slate-500 uppercase">
+              {isPele ? "PIELSN • Pele Island" : "Ocean Accounts Framework"}
             </span>
             <span className="text-xl font-semibold text-slate-900">
-              Global Ocean Accounts Partnership
+              {isPele
+                ? "Coral Reef and Shoreline Defence Dashboard"
+                : "Global Ocean Accounts Partnership"}
             </span>
           </div>
         </div>
@@ -44,11 +51,21 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-3 py-2 transition-colors hover:bg-primary-soft/70 hover:text-primary"
+              className="hover:bg-primary-soft/70 hover:text-primary rounded-full px-3 py-2 transition-colors"
             >
               {item.label}
             </Link>
           ))}
+          {isPele && mappingLink ? (
+            <a
+              href={mappingLink.url}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:bg-primary-soft/70 hover:text-primary rounded-full px-3 py-2 transition-colors"
+            >
+              {mappingLink.label}
+            </a>
+          ) : null}
         </nav>
       </div>
     </header>

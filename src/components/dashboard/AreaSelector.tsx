@@ -5,17 +5,58 @@ import { useEffect, useMemo, useState } from "react";
 import { EcosystemConditionCard } from "@/components/dashboard/EcosystemConditionCard";
 import { EcosystemDonutChart } from "@/components/dashboard/EcosystemDonutChart";
 import { sumEcosystemAreas } from "@/lib/calculations";
-import { formatNumber } from "@/lib/format";
-import type { SubnationalData } from "@/types";
+import { formatArea } from "@/lib/format";
+import type {
+  AreaUnit,
+  EcosystemKey,
+  ExternalLink,
+  SiteProfile,
+  SubnationalData,
+} from "@/types";
 
 interface AreaSelectorProps {
   subnational: SubnationalData;
   initialAreaId?: string | null;
+  profile?: SiteProfile;
+  areaUnit?: AreaUnit;
 }
 
-const FEATURED_ECOSYSTEMS = ["coralReef", "reefFlats", "seagrass", "mangroves"] as const;
+const DEFAULT_FEATURED_ECOSYSTEMS: EcosystemKey[] = [
+  "coralReef",
+  "reefFlats",
+  "seagrass",
+  "mangroves",
+];
 
-export function AreaSelector({ subnational, initialAreaId }: AreaSelectorProps) {
+const isExternalUrl = (url: string) => /^https?:\/\//.test(url);
+
+function MappingLink({ link, areaId }: { link?: ExternalLink | null; areaId: string }) {
+  const fallback = { label: "Open in spatial view", url: `/spatial?area=${areaId}` };
+  const resolved = link ?? fallback;
+  const className =
+    "inline-flex items-center justify-center rounded-full border border-primary/60 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/10";
+
+  if (isExternalUrl(resolved.url)) {
+    return (
+      <a href={resolved.url} target="_blank" rel="noreferrer" className={className}>
+        {resolved.label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={resolved.url} className={className}>
+      {resolved.label}
+    </Link>
+  );
+}
+
+export function AreaSelector({
+  subnational,
+  initialAreaId,
+  profile = "generic",
+  areaUnit = "ha",
+}: AreaSelectorProps) {
   const initialId = useMemo(() => {
     if (initialAreaId && subnational.areas.some((area) => area.id === initialAreaId)) {
       return initialAreaId;
@@ -58,45 +99,44 @@ export function AreaSelector({ subnational, initialAreaId }: AreaSelectorProps) 
     <section className="flex flex-col gap-6 rounded-[1.5rem] border border-slate-200/70 bg-white/80 p-6 shadow-sm">
       <header className="flex flex-col gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase">
             Explore Accounting Areas
           </p>
           <h2 className="text-2xl font-semibold text-slate-900">
-            Compare ecosystem extent across mapped areas
+            {profile === "pele"
+              ? "Compare ecosystem extent across Pele Island coastal areas"
+              : "Compare ecosystem extent across mapped areas"}
           </h2>
         </div>
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <label className="flex w-full max-w-sm flex-col gap-1 text-sm font-medium text-slate-600">
             Area selection
             <select
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-base text-slate-700 shadow-sm focus:border-primary focus:outline-none"
+              className="focus:border-primary rounded-xl border border-slate-200 bg-white px-3 py-2 text-base text-slate-700 shadow-sm focus:outline-none"
               value={selectedId}
               onChange={(event) => setSelectedId(event.target.value)}
             >
               {options.map((option) => (
                 <option key={option.id} value={option.id}>
-                  {option.name} •{" "}
-                  {formatNumber(option.total, { maximumFractionDigits: 0 })} ha
+                  {option.name} • {formatArea(option.total, areaUnit)}
                 </option>
               ))}
             </select>
           </label>
           {selectedArea ? (
-            <Link
-              href={`/spatial?area=${selectedArea.id}`}
-              className="inline-flex items-center justify-center rounded-full border border-primary/60 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
-            >
-              Open in spatial view
-            </Link>
+            <MappingLink
+              areaId={selectedArea.id}
+              link={selectedArea.spatialLink ?? subnational.spatialLink}
+            />
           ) : null}
         </div>
         {selectedArea ? (
           <p className="text-sm text-slate-500">
             {selectedArea.description ??
-              `Total mapped extent of ${formatNumber(
+              `Total mapped extent of ${formatArea(
                 sumEcosystemAreas(selectedArea.ecosystems),
-                { maximumFractionDigits: 0 },
-              )} hectares.`}
+                areaUnit,
+              )}.`}
           </p>
         ) : (
           <p className="text-sm text-slate-500">
@@ -109,20 +149,25 @@ export function AreaSelector({ subnational, initialAreaId }: AreaSelectorProps) 
         <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <EcosystemDonutChart
             ecosystems={selectedArea.ecosystems}
+            areaUnit={areaUnit}
             title={`${selectedArea.name} Ecosystem Extent`}
-            subtitle={`Total extent: ${formatNumber(
+            subtitle={`Total extent: ${formatArea(
               sumEcosystemAreas(selectedArea.ecosystems),
-              { maximumFractionDigits: 0 },
-            )} hectares`}
+              areaUnit,
+            )}`}
           />
           <div className="grid gap-4 sm:grid-cols-2">
-            {FEATURED_ECOSYSTEMS.map((ecosystem) => (
-              <EcosystemConditionCard
-                key={ecosystem}
-                ecosystem={ecosystem}
-                extent={selectedArea.ecosystems[ecosystem]}
-              />
-            ))}
+            {(selectedArea.featuredEcosystems ?? DEFAULT_FEATURED_ECOSYSTEMS).map(
+              (ecosystem) => (
+                <EcosystemConditionCard
+                  key={ecosystem}
+                  ecosystem={ecosystem}
+                  extent={selectedArea.ecosystems[ecosystem]}
+                  areaUnit={areaUnit}
+                  conditionLabel={selectedArea.ecosystemConditionLabels?.[ecosystem]}
+                />
+              ),
+            )}
           </div>
         </div>
       ) : (

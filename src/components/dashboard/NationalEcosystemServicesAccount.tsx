@@ -4,14 +4,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { ServiceMetricCard } from "@/components/dashboard/services/ServiceMetricCard";
 import { getMaxMetricYear, normalizeServiceGroups, reorderMetrics } from "@/lib/services";
-import type { EcosystemServiceGroup, EcosystemServicesData } from "@/types";
+import type { EcosystemServiceGroup, EcosystemServicesData, SiteProfile } from "@/types";
 
 interface NationalEcosystemServicesAccountProps {
   services?: EcosystemServicesData;
+  profile?: SiteProfile;
 }
 
 export function NationalEcosystemServicesAccount({
   services,
+  profile = "generic",
 }: NationalEcosystemServicesAccountProps) {
   const ecosystems = useMemo(
     () => normalizeServiceGroups(services?.ecosystems),
@@ -42,7 +44,7 @@ export function NationalEcosystemServicesAccount({
   return (
     <section className="flex flex-col gap-6 rounded-[1.5rem] border border-slate-200/70 bg-white/80 p-6 shadow-sm">
       <header className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+        <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase">
           Ecosystem Services Account
         </p>
         <div className="flex flex-col gap-1">
@@ -50,8 +52,9 @@ export function NationalEcosystemServicesAccount({
             Services value across ecosystem types
           </h2>
           <p className="text-sm text-slate-600">
-            Compare ecosystem service indicators across ecosystem types and years available in the
-            template dataset.
+            {profile === "pele"
+              ? "Compare ecosystem extent and population use indicators across Pele ecosystem types."
+              : "Compare ecosystem service indicators across ecosystem types and years available in the template dataset."}
           </p>
         </div>
       </header>
@@ -60,7 +63,7 @@ export function NationalEcosystemServicesAccount({
         <label className="flex w-full max-w-sm flex-col gap-1 text-sm font-medium text-slate-600">
           Select ecosystem
           <select
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-base text-slate-700 shadow-sm focus:border-primary focus:outline-none"
+            className="focus:border-primary rounded-xl border border-slate-200 bg-white px-3 py-2 text-base text-slate-700 shadow-sm focus:outline-none"
             value={selected?.ecosystem ?? ""}
             onChange={(event) => setSelectedId(event.target.value)}
           >
@@ -72,7 +75,7 @@ export function NationalEcosystemServicesAccount({
           </select>
         </label>
         {latestYear ? (
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          <p className="text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase">
             Latest year shown: {latestYear}
           </p>
         ) : null}
@@ -81,7 +84,10 @@ export function NationalEcosystemServicesAccount({
       {selected ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {reorderMetrics(selected.metrics).map((metric) => (
-            <ServiceMetricCard key={`${selected.ecosystem}-${metric.id}`} metric={metric} />
+            <ServiceMetricCard
+              key={`${selected.ecosystem}-${metric.id}`}
+              metric={metric}
+            />
           ))}
         </div>
       ) : (

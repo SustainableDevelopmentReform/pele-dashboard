@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site Profile Configuration",
+  "type": "object",
+  "required": ["siteProfile"],
+  "properties": {
+    "siteProfile": { "type": "string", "enum": ["generic", "pele"] },
+    "title": { "type": "string" },
+    "logoSrc": { "type": ["string", "null"] },
+    "badgeLabel": { "type": ["string", "null"] },
+    "mappingLink": {
+      "anyOf": [{ "$ref": "#/$defs/externalLink" }, { "type": "null" }]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "externalLink": {
+      "type": "object",
+      "required": ["label", "url"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

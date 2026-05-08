@@ -1,0 +1,305 @@
+{
+  "startYear": 2019,
+  "endYear": 2025,
+  "metadata": {
+    "dataSource": "Pele Island benthic mapping workflow",
+    "methodology": "Placeholder historical series for Pele profile wiring. Replace with classified benthic cover and shoreline change outputs when available.",
+    "notes": "Total benthic cover is derived in the dashboard from the class series."
+  },
+  "ecosystems": [
+    {
+      "name": "coralReef",
+      "displayName": "Coral Reef",
+      "unit": "m2",
+      "data": [
+        {
+          "year": 2019,
+          "value": 394000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2020,
+          "value": 401000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2021,
+          "value": 408000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2022,
+          "value": 412000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2023,
+          "value": 419000,
+          "confidence": "high"
+        },
+        {
+          "year": 2024,
+          "value": 425000,
+          "confidence": "high"
+        },
+        {
+          "year": 2025,
+          "value": 428000,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "name": "rubbleBrokenCoral",
+      "displayName": "Rubble/broken coral",
+      "unit": "m2",
+      "data": [
+        {
+          "year": 2019,
+          "value": 153000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2020,
+          "value": 159000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2021,
+          "value": 164000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2022,
+          "value": 172000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2023,
+          "value": 178000,
+          "confidence": "high"
+        },
+        {
+          "year": 2024,
+          "value": 181000,
+          "confidence": "high"
+        },
+        {
+          "year": 2025,
+          "value": 184000,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "name": "sand",
+      "displayName": "Sand",
+      "unit": "m2",
+      "data": [
+        {
+          "year": 2019,
+          "value": 330000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2020,
+          "value": 328000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2021,
+          "value": 324000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2022,
+          "value": 321000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2023,
+          "value": 319000,
+          "confidence": "high"
+        },
+        {
+          "year": 2024,
+          "value": 318000,
+          "confidence": "high"
+        },
+        {
+          "year": 2025,
+          "value": 317000,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "name": "pavement",
+      "displayName": "Pavement",
+      "unit": "m2",
+      "data": [
+        {
+          "year": 2019,
+          "value": 241000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2020,
+          "value": 243000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2021,
+          "value": 244000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2022,
+          "value": 245000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2023,
+          "value": 245000,
+          "confidence": "high"
+        },
+        {
+          "year": 2024,
+          "value": 246000,
+          "confidence": "high"
+        },
+        {
+          "year": 2025,
+          "value": 246000,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "name": "rubble",
+      "displayName": "Rubble",
+      "unit": "m2",
+      "data": [
+        {
+          "year": 2019,
+          "value": 132000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2020,
+          "value": 135000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2021,
+          "value": 138000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2022,
+          "value": 142000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2023,
+          "value": 145000,
+          "confidence": "high"
+        },
+        {
+          "year": 2024,
+          "value": 147000,
+          "confidence": "high"
+        },
+        {
+          "year": 2025,
+          "value": 149000,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "name": "denseSeagrass",
+      "displayName": "Dense seagrass",
+      "unit": "m2",
+      "data": [
+        {
+          "year": 2019,
+          "value": 104000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2020,
+          "value": 109000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2021,
+          "value": 113000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2022,
+          "value": 115000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2023,
+          "value": 118000,
+          "confidence": "high"
+        },
+        {
+          "year": 2024,
+          "value": 120000,
+          "confidence": "high"
+        },
+        {
+          "year": 2025,
+          "value": 122000,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "name": "lightSeagrass",
+      "displayName": "Light seagrass",
+      "unit": "m2",
+      "data": [
+        {
+          "year": 2019,
+          "value": 171000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2020,
+          "value": 176000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2021,
+          "value": 181000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2022,
+          "value": 185000,
+          "confidence": "medium"
+        },
+        {
+          "year": 2023,
+          "value": 189000,
+          "confidence": "high"
+        },
+        {
+          "year": 2024,
+          "value": 192000,
+          "confidence": "high"
+        },
+        {
+          "year": 2025,
+          "value": 195000,
+          "confidence": "high"
+        }
+      ]
+    }
+  ]
+}

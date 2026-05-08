@@ -1,11 +1,12 @@
 import { ECOSYSTEM_COLORS, ECOSYSTEM_LABELS } from "@/lib/constants";
-import { formatNumber } from "@/lib/format";
-import type { EcosystemKey } from "@/types";
+import { formatArea } from "@/lib/format";
+import type { AreaUnit, EcosystemKey } from "@/types";
 
 interface EcosystemConditionCardProps {
   ecosystem: EcosystemKey;
   extent: number | null | undefined;
   conditionLabel?: string | null;
+  areaUnit?: AreaUnit;
 }
 
 const DEFAULT_CONDITION_LABELS: Partial<Record<EcosystemKey, string>> = {
@@ -19,12 +20,12 @@ export function EcosystemConditionCard({
   ecosystem,
   extent,
   conditionLabel,
+  areaUnit = "ha",
 }: EcosystemConditionCardProps) {
   const label = ECOSYSTEM_LABELS[ecosystem];
-  const value =
-    extent != null ? `${formatNumber(extent, { maximumFractionDigits: 0 })} ha` : "Data not available";
+  const value = extent != null ? formatArea(extent, areaUnit) : "Data not available";
   const condition =
-    conditionLabel ?? DEFAULT_CONDITION_LABELS[ecosystem] ?? "Condition indicator coming soon";
+    conditionLabel === undefined ? DEFAULT_CONDITION_LABELS[ecosystem] : conditionLabel;
 
   return (
     <article className="flex min-h-[180px] flex-col gap-4 rounded-2xl border border-slate-100 bg-white/90 p-5 shadow-sm">
@@ -34,12 +35,12 @@ export function EcosystemConditionCard({
           style={{ backgroundColor: ECOSYSTEM_COLORS[ecosystem] }}
           aria-hidden
         />
-        <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+        <h4 className="text-sm font-semibold tracking-wide text-slate-600 uppercase">
           {label}
         </h4>
       </header>
       <p className="text-2xl font-semibold text-slate-900">{value}</p>
-      <p className="text-sm text-slate-500">{condition}</p>
+      {condition ? <p className="text-sm text-slate-500">{condition}</p> : null}
     </article>
   );
 }

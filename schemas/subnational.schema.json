@@ -19,10 +19,65 @@
       "enum": ["low", "moderate", "high", null]
     },
     "socialIcon": {
-      "enum": ["boat", "meal", "wave", "tourism", "youth", "population", "currency", "damage"]
+      "enum": [
+        "boat",
+        "meal",
+        "wave",
+        "tourism",
+        "youth",
+        "population",
+        "currency",
+        "damage"
+      ]
     },
     "socialUnit": {
       "enum": ["percentage", "number", "currency"]
+    },
+    "ecosystemKey": {
+      "type": "string",
+      "enum": [
+        "coralReef",
+        "reefFlats",
+        "seagrass",
+        "mangroves",
+        "algae",
+        "tidalWetlands",
+        "other",
+        "rubbleBrokenCoral",
+        "sand",
+        "pavement",
+        "rubble",
+        "denseSeagrass",
+        "lightSeagrass"
+      ]
+    },
+    "externalLink": {
+      "type": "object",
+      "required": ["label", "url"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "ecosystemConditionLabels": {
+      "type": "object",
+      "properties": {
+        "coralReef": { "type": ["string", "null"] },
+        "reefFlats": { "type": ["string", "null"] },
+        "seagrass": { "type": ["string", "null"] },
+        "mangroves": { "type": ["string", "null"] },
+        "algae": { "type": ["string", "null"] },
+        "tidalWetlands": { "type": ["string", "null"] },
+        "other": { "type": ["string", "null"] },
+        "rubbleBrokenCoral": { "type": ["string", "null"] },
+        "sand": { "type": ["string", "null"] },
+        "pavement": { "type": ["string", "null"] },
+        "rubble": { "type": ["string", "null"] },
+        "denseSeagrass": { "type": ["string", "null"] },
+        "lightSeagrass": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
     },
     "socialTierLabels": {
       "type": "object",
@@ -56,7 +111,16 @@
         "description": { "type": "string" },
         "icon": {
           "type": "string",
-          "enum": ["boat", "meal", "wave", "tourism", "youth", "population", "currency", "damage"]
+          "enum": [
+            "boat",
+            "meal",
+            "wave",
+            "tourism",
+            "youth",
+            "population",
+            "currency",
+            "damage"
+          ]
         },
         "unit": {
           "type": "string",
@@ -148,7 +212,11 @@
         "tourismWorkers": { "type": ["number", "null"], "minimum": 0 },
         "tourismShare": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
         "fishingHouseholds": { "type": ["number", "null"], "minimum": 0 },
-        "oceanResourcesShare": { "type": ["number", "null"], "minimum": 0, "maximum": 100 }
+        "oceanResourcesShare": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 100
+        }
       },
       "additionalProperties": false
     }
@@ -166,6 +234,14 @@
           "name": { "type": "string", "minLength": 1 },
           "type": { "type": "string", "minLength": 1 },
           "description": { "type": ["string", "null"] },
+          "spatialLink": {
+            "anyOf": [{ "$ref": "#/$defs/externalLink" }, { "type": "null" }]
+          },
+          "featuredEcosystems": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/ecosystemKey" }
+          },
+          "ecosystemConditionLabels": { "$ref": "#/$defs/ecosystemConditionLabels" },
           "coordinates": {
             "type": "object",
             "required": ["latitude", "longitude"],
@@ -185,7 +261,13 @@
               "mangroves": { "type": "number", "minimum": 0 },
               "algae": { "type": ["number", "null"], "minimum": 0 },
               "tidalWetlands": { "type": ["number", "null"], "minimum": 0 },
-              "other": { "type": ["number", "null"], "minimum": 0 }
+              "other": { "type": ["number", "null"], "minimum": 0 },
+              "rubbleBrokenCoral": { "type": ["number", "null"], "minimum": 0 },
+              "sand": { "type": ["number", "null"], "minimum": 0 },
+              "pavement": { "type": ["number", "null"], "minimum": 0 },
+              "rubble": { "type": ["number", "null"], "minimum": 0 },
+              "denseSeagrass": { "type": ["number", "null"], "minimum": 0 },
+              "lightSeagrass": { "type": ["number", "null"], "minimum": 0 }
             },
             "additionalProperties": false
           }
@@ -193,9 +275,19 @@
         "additionalProperties": false
       }
     },
+    "spatialLink": {
+      "anyOf": [{ "$ref": "#/$defs/externalLink" }, { "type": "null" }]
+    },
     "social": {
       "type": "object",
-      "required": ["lastUpdated", "atollId", "atollName", "indicators", "atollAverages", "islands"],
+      "required": [
+        "lastUpdated",
+        "atollId",
+        "atollName",
+        "indicators",
+        "atollAverages",
+        "islands"
+      ],
       "properties": {
         "lastUpdated": { "type": "string", "format": "date" },
         "atollId": { "type": "string", "minLength": 1 },
@@ -225,10 +317,7 @@
                 ]
               },
               "socioeconomic": {
-                "anyOf": [
-                  { "$ref": "#/$defs/socioeconomicProfile" },
-                  { "type": "null" }
-                ]
+                "anyOf": [{ "$ref": "#/$defs/socioeconomicProfile" }, { "type": "null" }]
               }
             },
             "additionalProperties": false

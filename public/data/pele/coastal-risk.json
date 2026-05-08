@@ -1,0 +1,9 @@
+{
+  "title": "Coastal risk extent and shoreline defence",
+  "description": "This section is reserved for mapped coastal risk, shoreline defence, and exposure outputs for Pele Island. Summary metrics will appear here once the final shoreline and wave-modelling data are supplied.",
+  "metrics": [],
+  "mapLink": {
+    "label": "Open mapping view",
+    "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping"
+  }
+}

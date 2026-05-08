@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Pele restocking static map placeholder</title>
+  <desc id="desc">Static map placeholder showing Pele Island village restocking sites.</desc>
+  <rect width="960" height="420" fill="#e0f2fe"/>
+  <path d="M320 84c80-45 205-33 277 18 80 57 90 156 18 220-67 59-187 78-275 43-91-36-132-124-92-198 14-25 38-55 72-83z" fill="#f1dca7" stroke="#0f766e" stroke-width="6"/>
+  <path d="M277 210c93-34 183-29 270 15 54 27 103 34 149 21-50 73-131 113-244 119-89 4-158-21-207-76 4-34 14-60 32-79z" fill="#7dbb6f" opacity="0.55"/>
+  <path d="M285 148c112 35 212 34 299-5 31-14 65-21 102-21-45 39-96 67-153 84-94 28-176 21-248-20z" fill="#e85d75" opacity="0.6"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#0f172a">
+    <circle cx="343" cy="132" r="12" fill="#e85d75" stroke="#fff" stroke-width="4"/>
+    <text x="362" y="139">Worasiviu</text>
+    <circle cx="612" cy="154" r="12" fill="#e85d75" stroke="#fff" stroke-width="4"/>
+    <text x="631" y="161">Launamo</text>
+    <circle cx="641" cy="280" r="12" fill="#e85d75" stroke="#fff" stroke-width="4"/>
+    <text x="660" y="287">Piliura</text>
+    <circle cx="412" cy="304" r="12" fill="#e85d75" stroke="#fff" stroke-width="4"/>
+    <text x="431" y="311">Worearu</text>
+  </g>
+  <rect x="36" y="34" width="300" height="74" rx="12" fill="#ffffff" opacity="0.92"/>
+  <text x="58" y="68" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#0f172a">Restocking areas</text>
+  <text x="58" y="94" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#475569">Static placeholder map for Pele Island</text>
+</svg>

@@ -1,3 +1,5 @@
+import type { AreaUnit } from "@/types";
+
 const DEFAULT_LOCALE = "en-US";
 
 export const formatNumber = (
@@ -14,6 +16,18 @@ export const formatNumber = (
 
 export const formatHectares = (value: number | null | undefined): string =>
   formatNumber(value, { maximumFractionDigits: 0 }) + " ha";
+
+export const formatArea = (
+  value: number | null | undefined,
+  unit: AreaUnit = "ha",
+): string => {
+  if (value == null || Number.isNaN(value)) {
+    return "—";
+  }
+  const converted = unit === "m2" ? value * 10000 : value;
+  const unitLabel = unit === "m2" ? "m²" : "ha";
+  return `${formatNumber(converted, { maximumFractionDigits: 0 })} ${unitLabel}`;
+};
 
 export const formatPercentage = (
   value: number | null | undefined,

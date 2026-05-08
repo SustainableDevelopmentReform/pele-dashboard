@@ -17,7 +17,37 @@
         "mangroves": { "type": "number", "minimum": 0 },
         "algae": { "type": ["number", "null"], "minimum": 0 },
         "tidalWetlands": { "type": ["number", "null"], "minimum": 0 },
-        "other": { "type": ["number", "null"], "minimum": 0 }
+        "other": { "type": ["number", "null"], "minimum": 0 },
+        "rubbleBrokenCoral": { "type": ["number", "null"], "minimum": 0 },
+        "sand": { "type": ["number", "null"], "minimum": 0 },
+        "pavement": { "type": ["number", "null"], "minimum": 0 },
+        "rubble": { "type": ["number", "null"], "minimum": 0 },
+        "denseSeagrass": { "type": ["number", "null"], "minimum": 0 },
+        "lightSeagrass": { "type": ["number", "null"], "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "areaUnit": { "type": "string", "enum": ["ha", "m2"] },
+    "featuredEcosystems": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ecosystemKey" }
+    },
+    "ecosystemConditionLabels": {
+      "type": "object",
+      "properties": {
+        "coralReef": { "type": ["string", "null"] },
+        "reefFlats": { "type": ["string", "null"] },
+        "seagrass": { "type": ["string", "null"] },
+        "mangroves": { "type": ["string", "null"] },
+        "algae": { "type": ["string", "null"] },
+        "tidalWetlands": { "type": ["string", "null"] },
+        "other": { "type": ["string", "null"] },
+        "rubbleBrokenCoral": { "type": ["string", "null"] },
+        "sand": { "type": ["string", "null"] },
+        "pavement": { "type": ["string", "null"] },
+        "rubble": { "type": ["string", "null"] },
+        "denseSeagrass": { "type": ["string", "null"] },
+        "lightSeagrass": { "type": ["string", "null"] }
       },
       "additionalProperties": false
     },
@@ -113,8 +143,39 @@
         "values": {
           "type": "array",
           "items": { "$ref": "#/$defs/ecosystemServiceValue" }
+        },
+        "breakdown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string" },
+              "value": { "type": "number", "minimum": 0 },
+              "unit": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
         }
       }
+    },
+    "ecosystemKey": {
+      "type": "string",
+      "enum": [
+        "coralReef",
+        "reefFlats",
+        "seagrass",
+        "mangroves",
+        "algae",
+        "tidalWetlands",
+        "other",
+        "rubbleBrokenCoral",
+        "sand",
+        "pavement",
+        "rubble",
+        "denseSeagrass",
+        "lightSeagrass"
+      ]
     },
     "ecosystemServiceGroup": {
       "type": "object",
@@ -174,7 +235,16 @@
         "description": { "type": "string" },
         "icon": {
           "type": "string",
-          "enum": ["boat", "meal", "wave", "tourism", "youth", "population", "currency", "damage"]
+          "enum": [
+            "boat",
+            "meal",
+            "wave",
+            "tourism",
+            "youth",
+            "population",
+            "currency",
+            "damage"
+          ]
         },
         "unit": {
           "type": "string",

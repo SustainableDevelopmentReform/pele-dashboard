@@ -1,0 +1,10 @@
+{
+  "siteProfile": "pele",
+  "title": "Pele Island Coral Reef and Shoreline Defence Information Dashboard",
+  "logoSrc": "/pele/pielsn-logo.svg",
+  "badgeLabel": "PIELSN - Pele Island",
+  "mappingLink": {
+    "label": "Open mapping view",
+    "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping"
+  }
+}

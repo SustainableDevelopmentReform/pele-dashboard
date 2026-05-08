@@ -12,15 +12,63 @@ interface ValidationTarget {
 }
 
 const REQUIRED_TARGETS: ValidationTarget[] = [
-  { name: "National", schema: "national.schema.json", dataFile: "national.json", required: true },
-  { name: "Subnational", schema: "subnational.schema.json", dataFile: "subnational.json", required: true },
-  { name: "Time Series", schema: "timeseries.schema.json", dataFile: "timeseries.json", required: true },
-  { name: "Economic", schema: "economic.schema.json", dataFile: "economic.json", required: true },
-  { name: "Narrative", schema: "narrative.schema.json", dataFile: "narrative.json", required: true },
-  { name: "Spatial", schema: "spatial.schema.json", dataFile: "spatial.json", required: true },
+  {
+    name: "National",
+    schema: "national.schema.json",
+    dataFile: "national.json",
+    required: true,
+  },
+  {
+    name: "Subnational",
+    schema: "subnational.schema.json",
+    dataFile: "subnational.json",
+    required: true,
+  },
+  {
+    name: "Time Series",
+    schema: "timeseries.schema.json",
+    dataFile: "timeseries.json",
+    required: true,
+  },
+  {
+    name: "Economic",
+    schema: "economic.schema.json",
+    dataFile: "economic.json",
+    required: true,
+  },
+  {
+    name: "Narrative",
+    schema: "narrative.schema.json",
+    dataFile: "narrative.json",
+    required: true,
+  },
+  {
+    name: "Spatial",
+    schema: "spatial.schema.json",
+    dataFile: "spatial.json",
+    required: true,
+  },
 ];
 
 const OPTIONAL_TARGETS: ValidationTarget[] = [
+  {
+    name: "Site Profile",
+    schema: "site.schema.json",
+    dataFile: "site.json",
+    required: false,
+  },
+  {
+    name: "Coastal Risk",
+    schema: "coastal-risk.schema.json",
+    dataFile: "coastal-risk.json",
+    required: false,
+  },
+  {
+    name: "Restocking",
+    schema: "restocking.schema.json",
+    dataFile: "restocking.json",
+    required: false,
+  },
   {
     name: "Ecosystem Services",
     schema: "ecosystemServices.schema.json",
@@ -129,7 +177,9 @@ async function validate() {
       if (!dataPresent) {
         if (target.required) {
           hasErrors = true;
-          console.error(`✖ Missing required data file for ${target.name} (${target.dataFile})`);
+          console.error(
+            `✖ Missing required data file for ${target.name} (${target.dataFile})`,
+          );
         } else {
           console.log(`○ Skipping optional data file (${target.dataFile})`);
         }

@@ -1,0 +1,164 @@
+{
+  "species": [
+    {
+      "id": "giant-clam",
+      "label": "Giant clam restocking areas",
+      "displayName": "Giant clam",
+      "mapImage": "/pele/restocking-static-map.svg",
+      "mapLink": {
+        "label": "Open mapping view",
+        "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping"
+      },
+      "sites": [
+        {
+          "id": "worasiviu",
+          "village": "Worasiviu",
+          "description": "Village restoration site placeholder for giant clam monitoring.",
+          "coordinates": { "latitude": -17.492, "longitude": 168.296 },
+          "surveys": [
+            {
+              "year": 2025,
+              "clamsPlaced": 250,
+              "speciesAndSize": "T. derasa, 4-6 cm",
+              "restockingDate": "2025-08-15",
+              "survivalRate6mo": 0.78,
+              "notes": "Placeholder survey record pending final site data."
+            },
+            {
+              "year": 2024,
+              "clamsPlaced": 180,
+              "speciesAndSize": "T. derasa, 3-5 cm",
+              "restockingDate": "2024-09-10",
+              "survivalRate6mo": 0.74,
+              "notes": null
+            }
+          ]
+        },
+        {
+          "id": "launamo",
+          "village": "Launamo",
+          "description": "Village restoration site placeholder for giant clam monitoring.",
+          "coordinates": { "latitude": -17.501, "longitude": 168.318 },
+          "surveys": [
+            {
+              "year": 2025,
+              "clamsPlaced": 220,
+              "speciesAndSize": "T. maxima, 3-5 cm",
+              "restockingDate": "2025-08-18",
+              "survivalRate6mo": 0.72,
+              "notes": "Placeholder survey record pending final site data."
+            }
+          ]
+        },
+        {
+          "id": "piliura",
+          "village": "Piliura",
+          "description": "Village restoration site placeholder for giant clam monitoring.",
+          "coordinates": { "latitude": -17.516, "longitude": 168.324 },
+          "surveys": [
+            {
+              "year": 2025,
+              "clamsPlaced": 240,
+              "speciesAndSize": "T. derasa, 4-6 cm",
+              "restockingDate": "2025-08-20",
+              "survivalRate6mo": 0.76,
+              "notes": "Placeholder survey record pending final site data."
+            }
+          ]
+        },
+        {
+          "id": "worearu",
+          "village": "Worearu",
+          "description": "Village restoration site placeholder for giant clam monitoring.",
+          "coordinates": { "latitude": -17.524, "longitude": 168.302 },
+          "surveys": [
+            {
+              "year": 2025,
+              "clamsPlaced": 210,
+              "speciesAndSize": "T. maxima, 3-5 cm",
+              "restockingDate": "2025-08-22",
+              "survivalRate6mo": 0.7,
+              "notes": "Placeholder survey record pending final site data."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "green-snail",
+      "label": "Green snail restocking areas",
+      "displayName": "Green snail",
+      "mapImage": "/pele/restocking-static-map.svg",
+      "mapLink": {
+        "label": "Open mapping view",
+        "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping"
+      },
+      "sites": [
+        {
+          "id": "worasiviu",
+          "village": "Worasiviu",
+          "description": "Village restoration site placeholder for green snail monitoring.",
+          "coordinates": { "latitude": -17.492, "longitude": 168.296 },
+          "surveys": [
+            {
+              "year": 2025,
+              "individualsPlaced": 80,
+              "speciesAndSize": "Turbo marmoratus, juvenile cohort",
+              "restockingDate": "2025-09-05",
+              "survivalRate6mo": null,
+              "notes": "Survival assessment pending."
+            }
+          ]
+        },
+        {
+          "id": "launamo",
+          "village": "Launamo",
+          "description": "Village restoration site placeholder for green snail monitoring.",
+          "coordinates": { "latitude": -17.501, "longitude": 168.318 },
+          "surveys": [
+            {
+              "year": 2025,
+              "individualsPlaced": 75,
+              "speciesAndSize": "Turbo marmoratus, juvenile cohort",
+              "restockingDate": "2025-09-06",
+              "survivalRate6mo": null,
+              "notes": "Survival assessment pending."
+            }
+          ]
+        },
+        {
+          "id": "piliura",
+          "village": "Piliura",
+          "description": "Village restoration site placeholder for green snail monitoring.",
+          "coordinates": { "latitude": -17.516, "longitude": 168.324 },
+          "surveys": [
+            {
+              "year": 2025,
+              "individualsPlaced": 90,
+              "speciesAndSize": "Turbo marmoratus, juvenile cohort",
+              "restockingDate": "2025-09-07",
+              "survivalRate6mo": null,
+              "notes": "Survival assessment pending."
+            }
+          ]
+        },
+        {
+          "id": "worearu",
+          "village": "Worearu",
+          "description": "Village restoration site placeholder for green snail monitoring.",
+          "coordinates": { "latitude": -17.524, "longitude": 168.302 },
+          "surveys": [
+            {
+              "year": 2025,
+              "individualsPlaced": 70,
+              "speciesAndSize": "Turbo marmoratus, juvenile cohort",
+              "restockingDate": "2025-09-08",
+              "survivalRate6mo": null,
+              "notes": "Survival assessment pending."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

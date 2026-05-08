@@ -1,0 +1,127 @@
+{
+  "countryName": "Pele Island",
+  "countryCode": "PELE",
+  "lastUpdated": "2026-05-08",
+  "areaUnit": "m2",
+  "featuredEcosystems": [
+    "coralReef",
+    "rubbleBrokenCoral",
+    "sand",
+    "pavement",
+    "rubble",
+    "denseSeagrass",
+    "lightSeagrass"
+  ],
+  "ecosystemConditionLabels": {
+    "coralReef": "Condition: live coral cover from drone and field validation pending final QA",
+    "rubbleBrokenCoral": null,
+    "sand": null,
+    "pavement": null,
+    "rubble": null,
+    "denseSeagrass": "Condition: dense seagrass cover from classified benthic imagery",
+    "lightSeagrass": "Condition: light seagrass cover from classified benthic imagery"
+  },
+  "ecosystems": {
+    "coralReef": 42.8,
+    "reefFlats": 0,
+    "seagrass": 0,
+    "mangroves": 0,
+    "algae": null,
+    "tidalWetlands": null,
+    "other": null,
+    "rubbleBrokenCoral": 18.4,
+    "sand": 31.7,
+    "pavement": 24.6,
+    "rubble": 14.9,
+    "denseSeagrass": 12.2,
+    "lightSeagrass": 19.5
+  },
+  "metadata": {
+    "dataSource": "Pele Island benthic mapping workflow",
+    "methodology": "Placeholder values structured for the Pele deployment. Final figures should be replaced with field survey, drone, satellite, and wave-modelling outputs after QA.",
+    "referenceYear": 2025,
+    "spatialResolution": "Drone and satellite-derived mapping, resolution pending final metadata",
+    "uncertaintyRange": "Pending validation"
+  },
+  "ecosystemServices": {
+    "ecosystems": [
+      {
+        "ecosystem": "coralReef",
+        "ecosystemLabel": "Coral Reef",
+        "metrics": [
+          {
+            "id": "area",
+            "label": "Area",
+            "unit": "ha",
+            "values": [{ "year": 2025, "value": 42.8 }]
+          },
+          {
+            "id": "populationUse",
+            "label": "Population use",
+            "unit": "islanders",
+            "values": [{ "year": 2025, "value": 260 }]
+          }
+        ]
+      },
+      {
+        "ecosystem": "denseSeagrass",
+        "ecosystemLabel": "Dense seagrass",
+        "metrics": [
+          {
+            "id": "area",
+            "label": "Area",
+            "unit": "ha",
+            "values": [{ "year": 2025, "value": 12.2 }]
+          },
+          {
+            "id": "populationUse",
+            "label": "Population use",
+            "unit": "islanders",
+            "values": [{ "year": 2025, "value": 180 }]
+          }
+        ]
+      },
+      {
+        "ecosystem": "lightSeagrass",
+        "ecosystemLabel": "Light seagrass",
+        "metrics": [
+          {
+            "id": "area",
+            "label": "Area",
+            "unit": "ha",
+            "values": [{ "year": 2025, "value": 19.5 }]
+          },
+          {
+            "id": "populationUse",
+            "label": "Population use",
+            "unit": "islanders",
+            "values": [{ "year": 2025, "value": 145 }]
+          }
+        ]
+      },
+      {
+        "ecosystem": "sand",
+        "ecosystemLabel": "Sand",
+        "metrics": [
+          {
+            "id": "area",
+            "label": "Area",
+            "unit": "ha",
+            "values": [{ "year": 2025, "value": 31.7 }]
+          },
+          {
+            "id": "populationUse",
+            "label": "Population use",
+            "unit": "islanders",
+            "values": [{ "year": 2025, "value": 95 }]
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "dataSource": "Pele Island community and ecosystem accounts placeholder dataset",
+      "methodology": "Population use values are placeholders until village-level use data are confirmed by the Pele implementation partners.",
+      "notes": "Condition index metrics are omitted until the calculation method is confirmed."
+    }
+  }
+}

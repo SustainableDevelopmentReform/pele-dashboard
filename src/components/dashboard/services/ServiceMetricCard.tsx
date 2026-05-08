@@ -16,17 +16,19 @@ export function ServiceMetricCard({
   const latest = getLatestMetricValue(metric);
   const previous = getPreviousMetricValue(metric);
   const isExtent = metric.id === "area";
-  const unit = isExtent ? "ha" : metric.unit;
-  const multiplier = isExtent ? 1000 : 1;
+  const isThousandHectares = isExtent && /thousand hectares/i.test(metric.unit);
+  const unit = isThousandHectares ? "ha" : metric.unit;
+  const multiplier = isThousandHectares ? 1000 : 1;
   const latestValue = latest ? latest.value * multiplier : null;
   const previousValue = previous ? previous.value * multiplier : null;
-  const change = latestValue != null && previousValue != null ? latestValue - previousValue : null;
+  const change =
+    latestValue != null && previousValue != null ? latestValue - previousValue : null;
   const maxFractionDigits = latestValue != null && latestValue < 10 ? 1 : 0;
-  const previousFractionDigits =
-    previousValue != null && previousValue < 10 ? 1 : 0;
-  const valueLabel = latestValue != null
-    ? `${formatNumber(latestValue, { maximumFractionDigits: maxFractionDigits })} ${unit}`
-    : "Data not available";
+  const previousFractionDigits = previousValue != null && previousValue < 10 ? 1 : 0;
+  const valueLabel =
+    latestValue != null
+      ? `${formatNumber(latestValue, { maximumFractionDigits: maxFractionDigits })} ${unit}`
+      : "Data not available";
   const label = isExtent ? "Extent" : metric.label;
 
   const baseClasses =
@@ -36,26 +38,44 @@ export function ServiceMetricCard({
   return (
     <article className={`${baseClasses} ${compactClasses}`}>
       <header className="flex items-center justify-between gap-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
+        <p className="text-xs font-semibold tracking-wide text-slate-600 uppercase">
           {label}
         </p>
         {latest ? (
-          <span className="text-[11px] font-semibold text-primary/80">{latest.year}</span>
+          <span className="text-primary/80 text-[11px] font-semibold">{latest.year}</span>
         ) : null}
       </header>
       <p className="text-xl font-semibold text-slate-900">{valueLabel}</p>
       {showChange && previous ? (
         <p className="text-xs text-slate-500">
           {previous.year}:{" "}
-          {formatNumber(previous.value, { maximumFractionDigits: previousFractionDigits })}{" "}
+          {formatNumber(previous.value, {
+            maximumFractionDigits: previousFractionDigits,
+          })}{" "}
           {metric.unit}
           {change != null ? (
-            <span className={`ml-2 font-semibold ${change >= 0 ? "text-emerald-600" : "text-rose-600"}`}>
+            <span
+              className={`ml-2 font-semibold ${change >= 0 ? "text-emerald-600" : "text-rose-600"}`}
+            >
               {change >= 0 ? "+" : ""}
-              {formatNumber(change, { maximumFractionDigits: maxFractionDigits })} {metric.unit}
+              {formatNumber(change, { maximumFractionDigits: maxFractionDigits })}{" "}
+              {metric.unit}
             </span>
           ) : null}
         </p>
+      ) : null}
+      {metric.breakdown && metric.breakdown.length > 0 ? (
+        <dl className="mt-1 grid gap-1 border-t border-slate-100 pt-2 text-xs text-slate-500">
+          {metric.breakdown.map((item) => (
+            <div key={item.label} className="flex items-center justify-between gap-3">
+              <dt>{item.label}</dt>
+              <dd className="font-semibold text-slate-700">
+                {formatNumber(item.value, { maximumFractionDigits: 0 })}{" "}
+                {item.unit ?? metric.unit}
+              </dd>
+            </div>
+          ))}
+        </dl>
       ) : null}
     </article>
   );

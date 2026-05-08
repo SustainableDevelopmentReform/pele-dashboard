@@ -1,14 +1,15 @@
 import { arc as d3Arc, pie as d3Pie } from "d3";
 import type { PieArcDatum } from "d3";
 import { ECOSYSTEM_COLORS, ECOSYSTEM_LABELS, ECOSYSTEM_ORDER } from "@/lib/constants";
-import { formatNumber } from "@/lib/format";
-import type { EcosystemBreakdown, EcosystemKey } from "@/types";
+import { formatArea, formatNumber } from "@/lib/format";
+import type { AreaUnit, EcosystemBreakdown, EcosystemKey } from "@/types";
 
 interface EcosystemDonutChartProps {
   ecosystems: EcosystemBreakdown;
   title?: string;
   subtitle?: string;
   className?: string;
+  areaUnit?: AreaUnit;
 }
 
 interface SegmentDatum {
@@ -33,6 +34,7 @@ export function EcosystemDonutChart({
   title,
   subtitle,
   className,
+  areaUnit = "ha",
 }: EcosystemDonutChartProps) {
   const total = ECOSYSTEM_ORDER.reduce((sum, key) => {
     const value = ecosystems[key];
@@ -50,6 +52,7 @@ export function EcosystemDonutChart({
   }, []);
 
   const arcs = pieGenerator(segments);
+  const displayTotal = areaUnit === "m2" ? total * 10000 : total;
 
   return (
     <figure
@@ -90,10 +93,10 @@ export function EcosystemDonutChart({
               dy="-0.2em"
               className="fill-slate-900 text-2xl font-semibold"
             >
-              {formatNumber(total, { maximumFractionDigits: 0 })}
+              {formatNumber(displayTotal, { maximumFractionDigits: 0 })}
             </text>
             <text textAnchor="middle" dy="1.2em" className="fill-slate-500 text-sm">
-              hectares
+              {areaUnit === "m2" ? "m²" : "hectares"}
             </text>
           </g>
         </svg>
@@ -114,7 +117,7 @@ export function EcosystemDonutChart({
                 </dt>
               </div>
               <dd className="text-sm font-semibold text-slate-900">
-                {formatNumber(segment.value, { maximumFractionDigits: 0 })} ha
+                {formatArea(segment.value, areaUnit)}
                 <span className="ml-2 text-xs font-medium text-slate-500">
                   {segment.share.toFixed(1)}%
                 </span>

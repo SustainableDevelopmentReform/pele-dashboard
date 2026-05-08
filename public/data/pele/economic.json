@@ -1,0 +1,25 @@
+{
+  "lastUpdated": "2026-05-08",
+  "referenceYear": 2025,
+  "currency": "USD",
+  "indicators": {
+    "placeholder": {
+      "value": 0,
+      "unit": "n/a",
+      "description": "Required framework file. Economic highlights are hidden for the Pele profile."
+    }
+  },
+  "sectors": [
+    {
+      "name": "Hidden for Pele profile",
+      "value": 0,
+      "unit": "USD",
+      "percentage": null
+    }
+  ],
+  "metadata": {
+    "dataSource": "Pele profile placeholder",
+    "methodology": "Economic highlights are not rendered for the Pele profile.",
+    "notes": null
+  }
+}

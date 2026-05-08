@@ -1,0 +1,137 @@
+{
+  "spatialLink": {
+    "label": "Open mapping view",
+    "url": "https://pele-island-vanuatu.projects.earthengine.app/view/pele-island-coral-reef-and-coastal-mapping"
+  },
+  "areas": [
+    {
+      "id": "west-coast",
+      "name": "West coast - tide dominated",
+      "type": "coastal-sector",
+      "description": "Western Pele coastal sector, structured for tide-dominated reef and shoreline accounting.",
+      "featuredEcosystems": [
+        "coralReef",
+        "rubbleBrokenCoral",
+        "sand",
+        "pavement",
+        "rubble",
+        "denseSeagrass",
+        "lightSeagrass"
+      ],
+      "ecosystemConditionLabels": {
+        "coralReef": "Condition: field validation pending",
+        "rubbleBrokenCoral": null,
+        "sand": null,
+        "pavement": null,
+        "rubble": null,
+        "denseSeagrass": "Condition: dense cover classification",
+        "lightSeagrass": "Condition: light cover classification"
+      },
+      "coordinates": {
+        "latitude": -17.497,
+        "longitude": 168.288
+      },
+      "ecosystems": {
+        "coralReef": 16.2,
+        "reefFlats": 0,
+        "seagrass": 0,
+        "mangroves": 0,
+        "algae": null,
+        "tidalWetlands": null,
+        "other": null,
+        "rubbleBrokenCoral": 7.1,
+        "sand": 10.8,
+        "pavement": 8.4,
+        "rubble": 5.2,
+        "denseSeagrass": 3.4,
+        "lightSeagrass": 6.8
+      }
+    },
+    {
+      "id": "east-coast",
+      "name": "East coast - wave dominated",
+      "type": "coastal-sector",
+      "description": "Eastern Pele coastal sector, structured for wave-dominated shoreline defence and benthic cover accounting.",
+      "featuredEcosystems": [
+        "coralReef",
+        "rubbleBrokenCoral",
+        "sand",
+        "pavement",
+        "rubble",
+        "denseSeagrass",
+        "lightSeagrass"
+      ],
+      "ecosystemConditionLabels": {
+        "coralReef": "Condition: wave-exposed reef validation pending",
+        "rubbleBrokenCoral": null,
+        "sand": null,
+        "pavement": null,
+        "rubble": null,
+        "denseSeagrass": "Condition: dense cover classification",
+        "lightSeagrass": "Condition: light cover classification"
+      },
+      "coordinates": {
+        "latitude": -17.502,
+        "longitude": 168.326
+      },
+      "ecosystems": {
+        "coralReef": 18.6,
+        "reefFlats": 0,
+        "seagrass": 0,
+        "mangroves": 0,
+        "algae": null,
+        "tidalWetlands": null,
+        "other": null,
+        "rubbleBrokenCoral": 8.2,
+        "sand": 9.3,
+        "pavement": 11.7,
+        "rubble": 6.4,
+        "denseSeagrass": 4.1,
+        "lightSeagrass": 5.5
+      }
+    },
+    {
+      "id": "south-coast",
+      "name": "South coast - mixed",
+      "type": "coastal-sector",
+      "description": "Southern Pele coastal sector, structured for mixed wave and tide exposure.",
+      "featuredEcosystems": [
+        "coralReef",
+        "rubbleBrokenCoral",
+        "sand",
+        "pavement",
+        "rubble",
+        "denseSeagrass",
+        "lightSeagrass"
+      ],
+      "ecosystemConditionLabels": {
+        "coralReef": "Condition: mixed exposure validation pending",
+        "rubbleBrokenCoral": null,
+        "sand": null,
+        "pavement": null,
+        "rubble": null,
+        "denseSeagrass": "Condition: dense cover classification",
+        "lightSeagrass": "Condition: light cover classification"
+      },
+      "coordinates": {
+        "latitude": -17.526,
+        "longitude": 168.309
+      },
+      "ecosystems": {
+        "coralReef": 8.0,
+        "reefFlats": 0,
+        "seagrass": 0,
+        "mangroves": 0,
+        "algae": null,
+        "tidalWetlands": null,
+        "other": null,
+        "rubbleBrokenCoral": 3.1,
+        "sand": 11.6,
+        "pavement": 4.5,
+        "rubble": 3.3,
+        "denseSeagrass": 4.7,
+        "lightSeagrass": 7.2
+      }
+    }
+  ]
+}

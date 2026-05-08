@@ -7,7 +7,17 @@ export type EcosystemKey =
   | "mangroves"
   | "algae"
   | "tidalWetlands"
-  | "other";
+  | "other"
+  | "rubbleBrokenCoral"
+  | "sand"
+  | "pavement"
+  | "rubble"
+  | "denseSeagrass"
+  | "lightSeagrass";
+
+export type AreaUnit = "ha" | "m2";
+
+export type SiteProfile = "generic" | "pele";
 
 export type ConfidenceLevel = "low" | "medium" | "high";
 
@@ -16,7 +26,20 @@ export interface Coordinates {
   longitude: number;
 }
 
-export type EcosystemBreakdown = Record<EcosystemKey, number | null>;
+export type EcosystemBreakdown = Partial<Record<EcosystemKey, number | null>>;
+
+export interface ExternalLink {
+  label: string;
+  url: string;
+}
+
+export interface SiteConfig {
+  siteProfile: SiteProfile;
+  title?: string;
+  logoSrc?: string | null;
+  badgeLabel?: string | null;
+  mappingLink?: ExternalLink | null;
+}
 
 export type SocialIndicatorId =
   | "fishingIncomeDependency"
@@ -30,7 +53,15 @@ export type SocialIndicatorId =
 
 export type SocialTier = "low" | "moderate" | "high";
 
-export type SocialIconId = "boat" | "meal" | "wave" | "tourism" | "youth" | "population" | "currency" | "damage";
+export type SocialIconId =
+  | "boat"
+  | "meal"
+  | "wave"
+  | "tourism"
+  | "youth"
+  | "population"
+  | "currency"
+  | "damage";
 
 export type SocialUnit = "percentage" | "number" | "currency";
 
@@ -135,6 +166,11 @@ export interface EcosystemServiceMetric {
   label: string;
   unit: string;
   values: EcosystemServiceValue[];
+  breakdown?: Array<{
+    label: string;
+    value: number;
+    unit?: string | null;
+  }>;
 }
 
 export interface EcosystemServiceGroup {
@@ -181,6 +217,9 @@ export interface NationalData {
   lastUpdated: string;
   ecosystems: EcosystemBreakdown;
   metadata: NationalMetadata;
+  areaUnit?: AreaUnit;
+  featuredEcosystems?: EcosystemKey[];
+  ecosystemConditionLabels?: Partial<Record<EcosystemKey, string | null>>;
   ecosystemServices?: EcosystemServicesData;
   naturalCapital?: NaturalCapitalData;
   social?: NationalSocialData;
@@ -193,10 +232,14 @@ export interface SubnationalArea {
   ecosystems: EcosystemBreakdown;
   coordinates?: Coordinates;
   description?: string | null;
+  featuredEcosystems?: EcosystemKey[];
+  ecosystemConditionLabels?: Partial<Record<EcosystemKey, string | null>>;
+  spatialLink?: ExternalLink | null;
 }
 
 export interface SubnationalData {
   areas: SubnationalArea[];
+  spatialLink?: ExternalLink | null;
   social?: SubnationalSocialData;
 }
 
@@ -224,6 +267,52 @@ export interface TimeSeriesData {
   endYear: number;
   ecosystems: TimeSeriesSeries[];
   metadata: TimeSeriesMetadata;
+}
+
+export interface CoastalRiskMetric {
+  id: string;
+  label: string;
+  value?: number | null;
+  unit?: string | null;
+  description?: string | null;
+}
+
+export interface CoastalRiskData {
+  title: string;
+  description: string;
+  metrics: CoastalRiskMetric[];
+  mapLink?: ExternalLink | null;
+}
+
+export interface RestockingSurvey {
+  year: number;
+  clamsPlaced?: number | null;
+  individualsPlaced?: number | null;
+  speciesAndSize: string;
+  restockingDate: string;
+  survivalRate6mo?: number | null;
+  notes?: string | null;
+}
+
+export interface RestockingSite {
+  id: string;
+  village: string;
+  description?: string | null;
+  coordinates?: Coordinates | null;
+  surveys: RestockingSurvey[];
+}
+
+export interface RestockingSpecies {
+  id: string;
+  label: string;
+  displayName: string;
+  sites: RestockingSite[];
+  mapImage?: string | null;
+  mapLink?: ExternalLink | null;
+}
+
+export interface RestockingData {
+  species: RestockingSpecies[];
 }
 
 export interface EconomicIndicator {
@@ -628,6 +717,9 @@ export interface DashboardDataBundle {
   economic: EconomicData;
   narrative: NarrativeData;
   spatial: SpatialConfig;
+  site: SiteConfig;
+  coastalRisk?: CoastalRiskData | null;
+  restocking?: RestockingData | null;
   // Optional modules (activated by data presence)
   maritime?: {
     overview: MaritimeOverview;
@@ -645,5 +737,6 @@ export type GeoPointFeature = Feature<Point, SpatialFeatureProperties>;
 
 export interface DashboardConfig {
   dataDirectory: string;
+  siteProfile: SiteProfile;
   revalidate?: number;
 }

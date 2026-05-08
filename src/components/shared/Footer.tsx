@@ -1,11 +1,15 @@
 import Image from "next/image";
-import type { NarrativeFooter } from "@/types";
+import type { NarrativeFooter, SiteProfile } from "@/types";
 
 interface FooterProps {
   footer: NarrativeFooter;
+  profile?: SiteProfile;
+  logoSrc?: string | null;
 }
 
-export function Footer({ footer }: FooterProps) {
+export function Footer({ footer, profile = "generic", logoSrc }: FooterProps) {
+  const isPele = profile === "pele";
+
   return (
     <footer className="mt-16 border-t border-slate-200/70 bg-white/70 backdrop-blur">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
@@ -14,6 +18,17 @@ export function Footer({ footer }: FooterProps) {
           <p className="text-slate-500">{footer.dataSourceCitation}</p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-6 md:flex-nowrap md:justify-end">
+          {isPele && logoSrc ? (
+            <div className="relative h-28 w-36" role="img" aria-label="PIELSN">
+              <Image
+                src={logoSrc}
+                alt="PIELSN logo"
+                fill
+                sizes="144px"
+                className="object-contain"
+              />
+            </div>
+          ) : null}
           <a
             href="https://www.unsw.edu.au/research/centre-for-sustainable-development-reform"
             target="_blank"
