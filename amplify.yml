@@ -6,10 +6,10 @@ frontend:
         - npm install -g pnpm@10
         - pnpm config set store-dir .pnpm-store
         - pnpm install --frozen-lockfile
-        - pnpm run validate-data
+        - pnpm run validate-data pele
     build:
       commands:
-        - pnpm run build
+        - pnpm run build:pele
   artifacts:
     baseDirectory: .next
     files:

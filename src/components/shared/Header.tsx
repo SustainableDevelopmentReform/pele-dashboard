@@ -29,7 +29,7 @@ export function Header({ profile = "generic", logoSrc, mappingLink }: HeaderProp
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12">
             <Image
-              src={isPele && logoSrc ? logoSrc : "/goap_button.png"}
+              src={isPele ? "/pele/pielsn-logo-thumb.png" : "/goap_button.png"}
               alt={isPele ? "PIELSN logo" : "Global Ocean Accounts Partnership logo"}
               fill
               sizes="48px"
