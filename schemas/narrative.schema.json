@@ -35,7 +35,7 @@
                 "altText": { "type": "string" },
                 "position": {
                   "type": ["string", "null"],
-                  "enum": ["left", "right", "center", null]
+                  "enum": ["left", "right", "center", "below", null]
                 }
               },
               "additionalProperties": false

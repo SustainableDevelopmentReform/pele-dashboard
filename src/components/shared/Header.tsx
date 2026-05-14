@@ -22,6 +22,7 @@ interface HeaderProps {
 export function Header({ profile = "generic", logoSrc, mappingLink }: HeaderProps) {
   const isPele = profile === "pele";
   const navigation = isPele ? [{ href: "/", label: "Dashboard" }] : genericNavigation;
+  const headerLogoSrc = isPele ? (logoSrc ?? "/pele/pielsn-logo-thumb.png") : "/goap_button.png";
 
   return (
     <header className="border-b border-slate-200/70 bg-white/80 backdrop-blur-md">
@@ -29,7 +30,7 @@ export function Header({ profile = "generic", logoSrc, mappingLink }: HeaderProp
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12">
             <Image
-              src={isPele ? "/pele/pielsn-logo-thumb.png" : "/goap_button.png"}
+              src={headerLogoSrc}
               alt={isPele ? "PIELSN logo" : "Global Ocean Accounts Partnership logo"}
               fill
               sizes="48px"

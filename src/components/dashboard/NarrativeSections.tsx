@@ -23,33 +23,39 @@ export function NarrativeSections({ sections }: NarrativeSectionsProps) {
           const image = hasImage ? section.images[0] : undefined;
           const isImageLeft = index % 2 === 0;
 
-          if (image && image.position === "center") {
+          if (image && (image.position === "center" || image.position === "below")) {
+            const fullWidthImage = (
+              <figure className="flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => setExpandedImage(image)}
+                  className="group relative h-[360px] overflow-hidden rounded-3xl focus:outline-none focus:ring-4 focus:ring-primary/30"
+                >
+                  <Image
+                    src={resolveAssetUrl(image.filename)}
+                    alt={image.altText}
+                    fill
+                    sizes="(min-width: 1280px) 70vw, (min-width: 768px) 85vw, 100vw"
+                    className={`transition-transform duration-500 group-hover:scale-[1.015] ${
+                      image.position === "below" ? "object-cover" : "object-contain"
+                    }`}
+                  />
+                  <span className="absolute right-4 top-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+                    Click to enlarge
+                  </span>
+                </button>
+                {image.caption ? (
+                  <figcaption className="text-xs text-slate-500">{image.caption}</figcaption>
+                ) : null}
+              </figure>
+            );
+
             return (
               <article
                 key={section.id}
                 className="flex flex-col gap-6 rounded-[1.5rem] border border-slate-200/70 bg-white/80 p-6 shadow-sm"
               >
-                <figure className="flex flex-col gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setExpandedImage(image)}
-                    className="group relative h-[360px] overflow-hidden rounded-3xl focus:outline-none focus:ring-4 focus:ring-primary/30"
-                  >
-                    <Image
-                      src={resolveAssetUrl(image.filename)}
-                      alt={image.altText}
-                      fill
-                      sizes="(min-width: 1280px) 70vw, (min-width: 768px) 85vw, 100vw"
-                      className="object-contain transition-transform duration-500 group-hover:scale-[1.015]"
-                    />
-                    <span className="absolute right-4 top-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-                      Click to enlarge
-                    </span>
-                  </button>
-                  {image.caption ? (
-                    <figcaption className="text-xs text-slate-500">{image.caption}</figcaption>
-                  ) : null}
-                </figure>
+                {image.position === "center" ? fullWidthImage : null}
                 <div className="flex flex-col gap-4">
                   <h3 className="text-2xl font-semibold text-slate-900">{section.title}</h3>
                   <ReactMarkdown
@@ -59,6 +65,7 @@ export function NarrativeSections({ sections }: NarrativeSectionsProps) {
                     {section.content}
                   </ReactMarkdown>
                 </div>
+                {image.position === "below" ? fullWidthImage : null}
               </article>
             );
           }

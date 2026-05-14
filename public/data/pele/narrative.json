@@ -10,7 +10,14 @@
       "title": "Conservation and Future Outlook",
       "content": "Pele Island's reef, seagrass, and shoreline systems support food security, community identity, restoration work, and shoreline protection. The interim project report confirms that the foundational field campaign is complete, the Google Earth Engine processing environment has been set up, and the project is now focused on producing maps and models for community management plans.\n\nConservation activities are centred on community-led monitoring and practical planning. Training delivered through the August 2025 campaign covered marine survey methods, GPS use, drone survey foundations, data processing, GIS fundamentals, and QGIS workflows. Survey equipment, connectivity infrastructure, and ongoing weekly coordination meetings are intended to support long-term PIELSN capacity rather than one-off data collection.\n\nRestoration and adaptation work will use the mapping products to identify priority coral restoration and coastal rehabilitation sites, support community conservation area mapping, and inform management planning across all four villages. The project is also exploring biodiversity finance mechanisms that use transparent spatial datasets and ocean accounting methods to support community-led conservation activities.\n\nFuture updates should replace placeholder values with validated field, drone, satellite, and wave-modelling outputs; add confirmed village social indicators; and extend the shoreline change component when coastal-risk scenarios are ready.",
       "order": 1,
-      "images": []
+      "images": [
+        {
+          "filename": "/pele/coral_cookie.jpeg",
+          "caption": "Coral restoration substrate used to support community-led reef recovery activities.",
+          "altText": "A coral cookie restoration substrate with young coral fragments in shallow seawater",
+          "position": "below"
+        }
+      ]
     },
     {
       "id": "data-sources-methodology",

@@ -476,7 +476,7 @@ export interface NarrativeImage {
   filename: string;
   caption?: string | null;
   altText: string;
-  position?: "left" | "center" | "right";
+  position?: "left" | "center" | "right" | "below";
 }
 
 export interface NarrativeSection {

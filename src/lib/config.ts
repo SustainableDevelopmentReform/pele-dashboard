@@ -27,4 +27,4 @@ export const resolveDataUrl = (resource: string, dataDir?: string): string => {
 };
 
 export const resolveAssetUrl = (filename: string, dataDir?: string): string =>
-  resolveDataUrl(`assets/${filename}`, dataDir);
+  filename.startsWith("/") ? filename : resolveDataUrl(`assets/${filename}`, dataDir);
